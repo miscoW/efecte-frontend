@@ -1,0 +1,17 @@
+<div class="d-flex flex-wrap justify-content-center">
+    <div class="card border-info mb-3 mx-3" style="width: 22rem; height: 16rem;">
+        <div class="card-header bg-secondary text-white d-flex justify-content-between">
+            <div>
+                new note 
+            </div>
+            <div>
+                <button (click)="saveNote()" class='fas fa-save mx-2'></button> <button class='fas fa-times mx-2'></button>
+            </div> 
+        </div>
+        <div class="card-body d-flex justify-content-center">
+            <form [formGroup]="noteForm">
+                <textarea formControlName="content" maxlength="200" style="width: 20rem; height: 11rem;"></textarea>
+            </form>
+        </div>
+    </div>
+</div>
