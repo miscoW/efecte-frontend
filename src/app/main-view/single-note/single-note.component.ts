@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NoteDto } from 'src/generated';
 
 @Component({
@@ -8,11 +8,11 @@ import { NoteDto } from 'src/generated';
 })
 export class SingleNoteComponent implements OnInit {
 
-  @Input() note !: NoteDto;
+  @Input() note!: NoteDto;
+  @Output() delete = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }
