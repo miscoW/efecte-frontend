@@ -11,6 +11,8 @@ import { SingleNoteComponent } from './main-view/single-note/single-note.compone
 import { CreateNoteViewComponent } from './create-note-view/create-note-view.component';
 import { RouterModule } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { EditViewComponent } from './edit-view/edit-view.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
     MainViewComponent,
     HeaderComponent,
     SingleNoteComponent,
-    CreateNoteViewComponent
+    CreateNoteViewComponent,
+    PageNotFoundComponent,
+    EditViewComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +32,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
     RouterModule.forRoot([
       { path: '', component: MainViewComponent },
       { path: 'create', component: CreateNoteViewComponent },
+      { path: '**', component: PageNotFoundComponent}
     ]),
     ReactiveFormsModule
   ],
