@@ -1,7 +1,7 @@
 <div class="card border-info mb-3 mx-3" style="width: 20rem; height: 15rem;">
     <div class="card-header bg-secondary text-white d-flex justify-content-between">
         <div>{{note.modificationDate | date:'medium'}}</div>
-        <div><button class="fas fa-pencil-alt mx-1"></button></div>
+        <div><button class="fas fa-pencil-alt mx-1" [routerLink]="['/edit', note.id]"></button></div>
         <div><button class="fas fa-trash mx-1" (click)="delete.emit()"></button></div>
     </div>
     <div class="card-body text-center">

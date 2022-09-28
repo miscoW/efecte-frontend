@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { NoteContent, NotesRestControllerService } from 'src/generated';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NoteContent, NoteDto, NotesRestControllerService } from 'src/generated';
 
 @Component({
-  selector: 'app-create-note-view',
-  templateUrl: './create-note-view.component.html',
-  styleUrls: ['./create-note-view.component.css']
+  selector: 'app-edit-view',
+  templateUrl: './edit-view.component.html',
+  styleUrls: ['./edit-view.component.css']
 })
-export class CreateNoteViewComponent implements OnInit {
-    
+export class EditViewComponent implements OnInit {
+  
   text: string = "";
   noteForm = this.formBuilder.group({
     content: new FormControl(this.text, [Validators.required])
@@ -19,11 +19,21 @@ export class CreateNoteViewComponent implements OnInit {
   failureAlert: boolean = false;
   failureText : string = "";
   closeAlert: boolean = false;
-  
-  constructor(private formBuilder: FormBuilder,
-    private notesRestControllerService : NotesRestControllerService) { }
+  note!: NoteDto;
 
-  ngOnInit(): void {}
+
+  constructor(private formBuilder: FormBuilder,
+    private notesRestControllerService : NotesRestControllerService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router) { }
+
+  ngOnInit(): void {
+    this.note = this.activatedRoute.snapshot.data['note']
+    if(this.note.content != undefined) {
+      var text : string | null = this.note.content
+      this.noteForm.setValue({content : text});
+    }
+  }
 
   saveNote(): void {
     var text = this.noteForm.value.content;
@@ -35,6 +45,11 @@ export class CreateNoteViewComponent implements OnInit {
     } 
     this.notesRestControllerService.saveNote(note).subscribe(note => {
       this.successAlert = true;
+      this.note = note;
+      if(this.note.content != undefined) {
+        var text : string | null = this.note.content
+        this.noteForm.setValue({content : text});
+      }
     },
     error => {
       this.failureAlert = true;
@@ -43,11 +58,8 @@ export class CreateNoteViewComponent implements OnInit {
     
   }
 
-  reset(): void {
+  editMore(): void {
     this.successAlert = false;
-    this.noteForm.setValue({
-      content : ""
-    });
   }
 
   openCloseAlert(): void {

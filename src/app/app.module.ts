@@ -13,6 +13,7 @@ import { RouterModule } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EditViewComponent } from './edit-view/edit-view.component';
+import { NoteResolver } from './create-note-view/resolvers/note-resolver.resolver';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,11 @@ import { EditViewComponent } from './edit-view/edit-view.component';
     RouterModule.forRoot([
       { path: '', component: MainViewComponent },
       { path: 'create', component: CreateNoteViewComponent },
+      { path: 'edit/:id',
+        component: EditViewComponent,
+        resolve: {
+          note: NoteResolver
+      }},
       { path: '**', component: PageNotFoundComponent}
     ]),
     ReactiveFormsModule
