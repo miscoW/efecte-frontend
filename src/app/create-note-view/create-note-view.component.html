@@ -1,3 +1,21 @@
+<div *ngIf="successAlert" class="alert alert-success text-center" role="alert">
+  <p>note saved</p>
+  <p><button type="button" class="btn btn-primary mx-3" [routerLink]="['']">go back to list</button>
+    <button type="button" class="btn btn-primary mx-3" (click)="reset()">create new note</button></p>
+</div>
+<div *ngIf="failureAlert" class="alert alert-danger text-center" role="alert">
+  <p>some problems</p>
+  <p>{{failureText}}</p>
+  <p>
+    <button type="button" class="btn btn-primary mx-3" [routerLink]="['']">go back to list</button>
+    <button type="button" class="btn btn-primary mx-3" (click)="saveNote()">try save again</button> 
+  </p>
+</div>
+<div *ngIf="closeAlert" class="alert alert-secondary text-center" role="alert">
+  <p>you will lose your progress</p>
+  <p><button type="button" class="btn btn-danger mx-3" [routerLink]="['']">I know, go back to list</button>
+    <button type="button" class="btn btn-primary mx-3" (click)="closeCloseAlert()">back to edit</button></p>
+</div>
 <div class="d-flex flex-wrap justify-content-center">
     <div class="card border-info mb-3 mx-3" style="width: 22rem; height: 16rem;">
         <div class="card-header bg-secondary text-white d-flex justify-content-between">
@@ -5,12 +23,13 @@
                 new note 
             </div>
             <div>
-                <button (click)="saveNote()" class='fas fa-save mx-2'></button> <button class='fas fa-times mx-2'></button>
+                <button type="button" (click)="saveNote()" class="fas fa-save mx-2"[disabled]="noteForm.invalid"></button>
+                <button type="button" class="fas fa-times mx-2" (click)="openCloseAlert()"></button>
             </div> 
         </div>
         <div class="card-body d-flex justify-content-center">
             <form [formGroup]="noteForm">
-                <textarea formControlName="content" maxlength="200" style="width: 20rem; height: 11rem;"></textarea>
+                <textarea formControlName="content" maxlength="200" style="width: 20rem; height: 11rem;" required></textarea>
             </form>
         </div>
     </div>

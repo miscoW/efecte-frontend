@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NoteContent, NotesRestControllerService } from 'src/generated';
 
@@ -10,9 +10,16 @@ import { NoteContent, NotesRestControllerService } from 'src/generated';
 })
 export class CreateNoteViewComponent implements OnInit {
     
+  text: string = "";
   noteForm = this.formBuilder.group({
-    content: ""
+    content: new FormControl(this.text, [Validators.required])
   });
+
+  successAlert : boolean = false;
+  failureAlert: boolean = false;
+  failureText : string = "";
+  closeAlert: boolean = false;
+  
   constructor(private formBuilder: FormBuilder,
     private notesRestControllerService : NotesRestControllerService,
     private router: Router) { }
@@ -29,10 +36,27 @@ export class CreateNoteViewComponent implements OnInit {
       content : text
     } 
     this.notesRestControllerService.saveNote(note).subscribe(note => {
-      console.log(note);  // todo add popup with info about success
-      this.router.navigate(['']);
-    })
-    console.log(this.noteForm);
+      this.successAlert = true;
+    },
+    error => {
+      this.failureAlert = true;
+      this.failureText = error.message;
+    });
+    
   }
 
+  reset(): void {
+    this.successAlert = false;
+    this.noteForm.setValue({
+      content : ""
+    });
+  }
+
+  openCloseAlert(): void {
+    this.closeAlert = true;
+  }
+
+  closeCloseAlert(): void {
+    this.closeAlert = false;
+  }
 }
