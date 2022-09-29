@@ -19,11 +19,16 @@ export class CreateNoteViewComponent implements OnInit {
   failureAlert: boolean = false;
   failureText : string = "";
   closeAlert: boolean = false;
-  
+  textLength : number | undefined= 0;
+
   constructor(private formBuilder: FormBuilder,
     private notesRestControllerService : NotesRestControllerService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.noteForm.valueChanges.subscribe(data => {
+      this.textLength = data.content?.length
+    });
+  }
 
   saveNote(): void {
     var text = this.noteForm.value.content;
@@ -56,5 +61,12 @@ export class CreateNoteViewComponent implements OnInit {
 
   closeCloseAlert(): void {
     this.closeAlert = false;
+  }
+
+  canSave(): boolean {
+    var isAlertOpen: boolean = this.successAlert || this.failureAlert;
+    var isNoteValid: boolean = this.noteForm.valid;
+    var isSaveLegal: boolean = (!isAlertOpen && isNoteValid);
+    return isSaveLegal;
   }
 }

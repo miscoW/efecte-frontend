@@ -17,13 +17,13 @@
       <button type="button" class="btn btn-primary mx-3" (click)="closeCloseAlert()">back to edit</button></p>
   </div>
   <div class="d-flex flex-wrap justify-content-center">
-      <div class="card border-info mb-3 mx-3" style="width: 22rem; height: 16rem;">
+      <div class="card border-info mb-3 mx-3" style="width: 22rem; height: 18rem;">
           <div class="card-header bg-secondary text-white d-flex justify-content-between">
               <div>
                   {{note.modificationDate | date:'medium'}}
               </div>
               <div>
-                  <button type="button" (click)="saveNote()" class="fas fa-save mx-2"[disabled]="noteForm.invalid"></button>
+                  <button type="button" (click)="saveNote()" class="fas fa-save mx-2" [disabled]="!canSave()"></button>
                   <button type="button" class="fas fa-times mx-2" (click)="openCloseAlert()"></button>
               </div> 
           </div>
@@ -31,6 +31,9 @@
               <form [formGroup]="noteForm">
                   <textarea formControlName="content" maxlength="200" style="width: 20rem; height: 11rem;" autofocus></textarea>
               </form>
+          </div>
+          <div class="text-right mx-3">
+            <p>{{textLength}}/200</p>
           </div>
       </div>
   </div>

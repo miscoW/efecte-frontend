@@ -20,6 +20,8 @@ export class EditViewComponent implements OnInit {
   failureText : string = "";
   closeAlert: boolean = false;
   note!: NoteDto;
+  textLength : number | undefined;
+
 
 
   constructor(private formBuilder: FormBuilder,
@@ -33,6 +35,10 @@ export class EditViewComponent implements OnInit {
       var text : string | null = this.note.content
       this.noteForm.setValue({content : text});
     }
+    this.textLength = this.note.content?.length;
+    this.noteForm.valueChanges.subscribe(data => {
+      this.textLength = data.content?.length
+    });
   }
 
   saveNote(): void {
@@ -66,5 +72,12 @@ export class EditViewComponent implements OnInit {
 
   closeCloseAlert(): void {
     this.closeAlert = false;
+  }
+
+  canSave(): boolean {
+    var isAlertOpen: boolean = this.successAlert || this.failureAlert;
+    var isNoteValidAndChanged: boolean = this.noteForm.value.content !== this.note.content && this.noteForm.valid;
+    var isSaveLegal: boolean = (!isAlertOpen && isNoteValidAndChanged);
+    return isSaveLegal;
   }
 }
