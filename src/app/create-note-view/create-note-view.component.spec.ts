@@ -1,4 +1,7 @@
+import { HttpClient, HttpHandler } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormBuilder } from '@angular/forms';
+import { NotesRestControllerService } from 'src/generated';
 
 import { CreateNoteViewComponent } from './create-note-view.component';
 
@@ -8,7 +11,13 @@ describe('CreateNoteViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateNoteViewComponent ]
+      declarations: [ CreateNoteViewComponent ],
+      providers: [
+        FormBuilder,
+        NotesRestControllerService,
+        HttpClient,
+        HttpHandler
+      ]
     })
     .compileComponents();
 
