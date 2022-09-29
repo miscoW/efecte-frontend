@@ -36,6 +36,21 @@
     </button>
   </p>
 </div>
+<div *ngIf="removeAlert" class="alert alert-secondary text-center" role="alert">
+  <p>are you sure you want to remove this note?</p>
+  <p>
+    <button type="button" class="btn btn-danger mx-3" (click)="deleteNote()">
+      yes
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary mx-3"
+      (click)="closeRemoveAlert()"
+    >
+      no
+    </button>
+  </p>
+</div>
 <div class="d-flex flex-wrap justify-content-center">
   <div class="card border-info mb-3 mx-3" style="width: 22rem; height: 18rem">
     <div
@@ -48,12 +63,17 @@
         <button
           type="button"
           (click)="saveNote()"
-          class="fas fa-save mx-2"
+          class="fas fa-save mx-1"
           [disabled]="!canSave()"
         ></button>
         <button
           type="button"
-          class="fas fa-times mx-2"
+          (click)="deleteNoteButton()"
+          class="fas fa-trash mx-1"
+        ></button>
+        <button
+          type="button"
+          class="fas fa-times mx-1"
           (click)="openCloseAlert()"
         ></button>
       </div>

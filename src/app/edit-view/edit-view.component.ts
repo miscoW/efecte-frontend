@@ -14,6 +14,7 @@ import {
 })
 export class EditViewComponent implements OnInit {
   text: string = '';
+  removeAlert: boolean = false;
   noteForm = this.formBuilder.group({
     content: new FormControl(this.text, [Validators.required]),
   });
@@ -84,5 +85,27 @@ export class EditViewComponent implements OnInit {
       this.noteForm.value.content !== this.note.content && this.noteForm.valid;
     var isSaveLegal: boolean = !isAlertOpen && isNoteValidAndChanged;
     return isSaveLegal;
+  }
+
+  deleteNoteButton(): void {
+    this.removeAlert = true;
+  }
+
+  closeRemoveAlert(): void {
+    this.removeAlert = false;
+  }
+
+  deleteNote(): void {
+    if (this.note != null) {
+      this.notesRestControllerService.removeNote(this.note).subscribe(
+        (response) => {
+          this.router.navigate(['']);
+        },
+        (error) => {
+          this.failureAlert = true;
+          this.failureText = error.message;
+        }
+      );
+    }
   }
 }
