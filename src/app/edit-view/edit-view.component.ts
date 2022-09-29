@@ -40,10 +40,8 @@ export class EditViewComponent implements OnInit {
     if(text == undefined || text == null) {
       text = ""
     }
-    var note : NoteContent = {
-      content : text
-    } 
-    this.notesRestControllerService.saveNote(note).subscribe(note => {
+    this.note.content = text;
+    this.notesRestControllerService.editNote(this.note).subscribe(note => {
       this.successAlert = true;
       this.note = note;
       if(this.note.content != undefined) {
