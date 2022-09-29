@@ -11,15 +11,14 @@ describe('CreateNoteViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateNoteViewComponent ],
+      declarations: [CreateNoteViewComponent],
       providers: [
         FormBuilder,
         NotesRestControllerService,
         HttpClient,
-        HttpHandler
-      ]
-    })
-    .compileComponents();
+        HttpHandler,
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CreateNoteViewComponent);
     component = fixture.componentInstance;

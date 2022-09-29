@@ -11,15 +11,14 @@ describe('MainViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MainViewComponent ],
+      declarations: [MainViewComponent],
       providers: [
         FormBuilder,
         NotesRestControllerService,
         HttpClient,
-        HttpHandler
-      ]
-    })
-    .compileComponents();
+        HttpHandler,
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MainViewComponent);
     component = fixture.componentInstance;

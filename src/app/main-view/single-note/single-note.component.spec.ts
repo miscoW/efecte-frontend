@@ -8,12 +8,17 @@ describe('SingleNoteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SingleNoteComponent ]
-    })
-    .compileComponents();
+      declarations: [SingleNoteComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SingleNoteComponent);
     component = fixture.componentInstance;
+    component.note = {
+      id: 1,
+      content: "aaa",
+      modificationDate: new Date(),
+      version: 0
+    }
     fixture.detectChanges();
   });
 

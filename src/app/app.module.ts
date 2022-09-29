@@ -23,7 +23,7 @@ import { NoteResolver } from './create-note-view/resolvers/note-resolver.resolve
     SingleNoteComponent,
     CreateNoteViewComponent,
     PageNotFoundComponent,
-    EditViewComponent
+    EditViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,16 +33,18 @@ import { NoteResolver } from './create-note-view/resolvers/note-resolver.resolve
     RouterModule.forRoot([
       { path: '', component: MainViewComponent },
       { path: 'create', component: CreateNoteViewComponent },
-      { path: 'edit/:id',
+      {
+        path: 'edit/:id',
         component: EditViewComponent,
         resolve: {
-          note: NoteResolver
-      }},
-      { path: '**', component: PageNotFoundComponent}
+          note: NoteResolver,
+        },
+      },
+      { path: '**', component: PageNotFoundComponent },
     ]),
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [FormBuilder],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

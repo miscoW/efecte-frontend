@@ -11,11 +11,12 @@ describe('NoteResolverResolver', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-      FormBuilder,
-      NotesRestControllerService,
-      HttpClient,
-      HttpHandler
-    ]});
+        FormBuilder,
+        NotesRestControllerService,
+        HttpClient,
+        HttpHandler,
+      ],
+    });
     resolver = TestBed.inject(NoteResolver);
   });
 
