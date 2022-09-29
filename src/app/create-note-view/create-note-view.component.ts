@@ -9,7 +9,7 @@ import { NoteContent, NotesRestControllerService } from 'src/generated';
   styleUrls: ['./create-note-view.component.css']
 })
 export class CreateNoteViewComponent implements OnInit {
-    
+
   text: string = "";
   noteForm = this.formBuilder.group({
     content: new FormControl(this.text, [Validators.required])
@@ -37,7 +37,7 @@ export class CreateNoteViewComponent implements OnInit {
     }
     var note : NoteContent = {
       content : text
-    } 
+    }
     this.notesRestControllerService.saveNote(note).subscribe(note => {
       this.successAlert = true;
     },
@@ -45,7 +45,6 @@ export class CreateNoteViewComponent implements OnInit {
       this.failureAlert = true;
       this.failureText = error.message;
     });
-    
   }
 
   reset(): void {

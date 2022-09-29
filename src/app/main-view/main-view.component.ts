@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { NoteDto, NotesRestControllerService } from 'src/generated';
 
 @Component({
@@ -7,22 +8,29 @@ import { NoteDto, NotesRestControllerService } from 'src/generated';
   styleUrls: ['./main-view.component.css']
 })
 export class MainViewComponent implements OnInit {
-
-  notesRestControllerService: NotesRestControllerService;
   notesList: NoteDto[] = [];
   removeAlert: boolean = false;
   noteToRemove: NoteDto | null = null;
+  searchForm = this.formBuilder.group({
+    searchText: ""
+  });
 
-  constructor(notesRestControllerService : NotesRestControllerService) {
-    this.notesRestControllerService = notesRestControllerService;
-   }
+  constructor(private notesRestControllerService : NotesRestControllerService,
+    private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
+    this.searchForm.setValue({
+      searchText: ""
+    });
     this.loadNotes();
   }
 
   loadNotes(): void {
-    this.notesRestControllerService.getAllNotes().subscribe(response => {
+    var searchText: string = "";
+    if(this.searchForm.value.searchText != null) {
+      searchText = this.searchForm.value.searchText
+    }
+    this.notesRestControllerService.searchNotes(searchText).subscribe(response => {
       this.notesList = response;
     }
     )
@@ -49,4 +57,14 @@ export class MainViewComponent implements OnInit {
     }
   }
     
+  searchNotes(): void {
+    this.loadNotes();
+  }
+
+  resetFilter(): void {
+    this.searchForm.setValue({
+      searchText: ""
+    });
+    this.loadNotes();
+  }
 }
